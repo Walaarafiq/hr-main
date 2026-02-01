@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import type { ReactNode } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import { FaSignOutAlt, FaBell, FaAngleDown,FaUser ,FaFileAlt ,FaHome,FaUserTie,FaCogs ,FaFolderOpen,FaClock 
-  ,FaChalkboardTeacher,FaArchive,FaFileInvoiceDollar  ,FaMoneyCheckAlt, FaTools } from "react-icons/fa";
+import {
+  FaSignOutAlt, FaBell, FaAngleDown, FaUser, FaFileAlt, FaHome, FaUserTie, FaCogs, FaFolderOpen, FaClock
+  , FaChalkboardTeacher, FaArchive, FaFileInvoiceDollar, FaMoneyCheckAlt, FaTools
+} from "react-icons/fa";
 import { FaMessage } from "react-icons/fa6";
 import { NavLink, useNavigate } from "react-router-dom";
 import { getEmployeeDashboard } from "../api/dashboard"; // Import API
@@ -24,9 +26,9 @@ function EmpGateSideBar({ children }: SideBarProps) {
       try {
         const response = await getEmployeeDashboard();
         if (response && response.data && response.data.personal_info) {
-           setEmployeeName(response.data.personal_info.full_name);
-           setJobTitle(response.data.personal_info.job_title);
-           setDepartment(response.data.personal_info.department);
+          setEmployeeName(response.data.personal_info.full_name);
+          setJobTitle(response.data.personal_info.job_title);
+          setDepartment(response.data.personal_info.department);
         }
       } catch (error) {
         console.error("Failed to fetch sidebar user data", error);
@@ -52,12 +54,12 @@ function EmpGateSideBar({ children }: SideBarProps) {
           <h5 className="text-center titleOfSide" style={{ fontSize: "16px", padding: "10px" }}>
             {employeeName}
             {jobTitle && <div style={{ fontSize: "12px", color: "#ccc", marginTop: "5px" }}>{jobTitle}</div>}
-             {department && <div style={{ fontSize: "11px", color: "#aaa" }}>{department}</div>}
+            {department && <div style={{ fontSize: "11px", color: "#aaa" }}>{department}</div>}
           </h5>
           <hr />
 
           {/* الرئيسية */}
-         <label className="LabelSideEmp">الرئيسية</label>
+          <label className="LabelSideEmp">الرئيسية</label>
           <ul className="ulMain">
             <li style={{ paddingRight: "0px" }}>
               <NavLink
@@ -72,8 +74,8 @@ function EmpGateSideBar({ children }: SideBarProps) {
                 className={({ isActive }) =>
                   isActive ? "active-link" : ""
                 }>
-                <FaHome style={{marginLeft:"8px"}} />
-                الصفحة الرئيسية 
+                <FaHome style={{ marginLeft: "8px" }} />
+                الصفحة الرئيسية
               </NavLink>
             </li>
           </ul>
@@ -81,14 +83,14 @@ function EmpGateSideBar({ children }: SideBarProps) {
 
           {/* خدمات الموظف الذاتية  */}
           <label className="LabelSideEmp">
-           الخدمات الذاتية
+            الخدمات الذاتية
 
           </label>
 
           <ul>
-            
-          <li className="ulMain">
-            <NavLink
+
+            <li className="ulMain">
+              <NavLink
                 to="/profile"
                 style={{
                   textDecoration: "none",
@@ -100,8 +102,8 @@ function EmpGateSideBar({ children }: SideBarProps) {
                 className={({ isActive }) =>
                   isActive ? "active-link" : ""
                 }>
-                <FaHome style={{marginLeft:"8px"}} />
-                ملفي الشخصي  
+                <FaHome style={{ marginLeft: "8px" }} />
+                ملفي الشخصي
               </NavLink>
             </li>
 
@@ -121,8 +123,8 @@ function EmpGateSideBar({ children }: SideBarProps) {
                 className={({ isActive }) =>
                   isActive ? "active-link" : ""
                 }>
-                <FaHome style={{marginLeft:"8px"}} />
-                قسيمة الراتب   
+                <FaHome style={{ marginLeft: "8px" }} />
+                قسيمة الراتب
               </NavLink>
             </li>
           </ul>
@@ -140,40 +142,40 @@ function EmpGateSideBar({ children }: SideBarProps) {
                 className={({ isActive }) =>
                   isActive ? "active-link" : ""
                 }>
-                <FaHome style={{marginLeft:"8px"}} />
-                الحالة الإجتماعية للموظف    
+                <FaHome style={{ marginLeft: "8px" }} />
+                الحالة الإجتماعية للموظف
               </NavLink>
             </li>
           </ul>
 
           <ul><li className="ulMain">
-              <NavLink
-                to="/dashboard"
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "5px",
-                }}
-                className={({ isActive }) =>
-                  isActive ? "active-link" : ""
-                }>
-                <FaHome style={{marginLeft:"8px"}} />
-                طلب إجازة    
-              </NavLink>
-            </li></ul>
-          <hr/>
+            <NavLink
+              to="/dashboard"
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                display: "flex",
+                alignItems: "center",
+                gap: "5px",
+              }}
+              className={({ isActive }) =>
+                isActive ? "active-link" : ""
+              }>
+              <FaHome style={{ marginLeft: "8px" }} />
+              طلب إجازة
+            </NavLink>
+          </li></ul>
+          <hr />
 
-             {/* عائلة الموظف  */}
+          {/* عائلة الموظف  */}
           <label className="LabelSideEmp">
-           بيانات العائلة 
+            بيانات العائلة
           </label>
 
           <ul>
             <li className="ulMain">
               <NavLink
-                to="/dashboard"
+                to="/add-wife"
                 style={{
                   textDecoration: "none",
                   color: "inherit",
@@ -184,17 +186,17 @@ function EmpGateSideBar({ children }: SideBarProps) {
                 className={({ isActive }) =>
                   isActive ? "active-link" : ""
                 }>
-                <FaHome style={{marginLeft:"8px"}} />
-                الزوج/الزوجة  
+                <FaHome style={{ marginLeft: "8px" }} />
+                الزوج/الزوجة
               </NavLink>
             </li>
-           
+
           </ul>
 
           <ul>
             <li className="ulMain">
               <NavLink
-                to="/dashboard"
+                to="/add-children"
                 style={{
                   textDecoration: "none",
                   color: "inherit",
@@ -205,15 +207,15 @@ function EmpGateSideBar({ children }: SideBarProps) {
                 className={({ isActive }) =>
                   isActive ? "active-link" : ""
                 }>
-                <FaHome style={{marginLeft:"8px"}} />
-                الأبناء  
+                <FaHome style={{ marginLeft: "8px" }} />
+                الأبناء
               </NavLink>
             </li>
           </ul>
           <ul>
             <li className="ulMain">
-             <NavLink
-                to="/dashboard"
+              <NavLink
+                to="/add-heart"
                 style={{
                   textDecoration: "none",
                   color: "inherit",
@@ -224,8 +226,8 @@ function EmpGateSideBar({ children }: SideBarProps) {
                 className={({ isActive }) =>
                   isActive ? "active-link" : ""
                 }>
-                <FaHome style={{marginLeft:"8px"}} />
-                المعالون  
+                <FaHome style={{ marginLeft: "8px" }} />
+                المعالون
               </NavLink>
             </li>
           </ul>
@@ -237,7 +239,7 @@ function EmpGateSideBar({ children }: SideBarProps) {
 
           <ul>
             <li className="ulMain">
-             <NavLink
+              <NavLink
                 to="/dashboard"
                 style={{
                   textDecoration: "none",
@@ -249,8 +251,8 @@ function EmpGateSideBar({ children }: SideBarProps) {
                 className={({ isActive }) =>
                   isActive ? "active-link" : ""
                 }>
-                <FaHome style={{marginLeft:"8px"}} />
-                تسجيل الخروج  
+                <FaHome style={{ marginLeft: "8px" }} />
+                تسجيل الخروج
               </NavLink>
             </li>
 
@@ -261,7 +263,7 @@ function EmpGateSideBar({ children }: SideBarProps) {
 
       {/* ===== Content ===== */}
       <div className={`content ${open ? "" : "full"}`}>
-        <Navbar className=" navbar px-3 d-flex justify-content-between border-bottom" style={{backgroundColor:"#f1f3f5"}}>
+        <Navbar className=" navbar px-3 d-flex justify-content-between border-bottom" style={{ backgroundColor: "#f1f3f5" }}>
 
           <div className="d-flex align-items-center">
             <button className="toggleBtnEmp" onClick={() => setOpen(!open)}>
@@ -274,7 +276,7 @@ function EmpGateSideBar({ children }: SideBarProps) {
               style={{ width: 75, height: 75 }}
               className="ms-3"
             />
-              {/* <NavLink to="/add-employee">
+            {/* <NavLink to="/add-employee">
             <button
                 className="btn addEmployee ms-3"
                 style={{ fontSize: "13px", padding: "6px 10px" }}>
@@ -284,7 +286,7 @@ function EmpGateSideBar({ children }: SideBarProps) {
           </div>
 
           <div className="d-flex align-items-center">
-            <FaSignOutAlt className="iconsEmp me-3" style={{cursor: "pointer"}} onClick={handleLogout} />
+            <FaSignOutAlt className="iconsEmp me-3" style={{ cursor: "pointer" }} onClick={handleLogout} />
             <FaBell className="iconsEmp me-3" />
             <FaMessage className="iconsEmp me-3" />
 
@@ -295,31 +297,32 @@ function EmpGateSideBar({ children }: SideBarProps) {
               style={{
                 width: 50,
                 height: 50,
-                borderRadius: "50%",}}/>
-            
+                borderRadius: "50%",
+              }} />
+
           </div>
-          
+
         </Navbar>
 
         <div className="p-4">
           {children}
         </div>
         {/* ===== Footer ===== */}
-<footer className="emp-footer mt-5">
-  <div className="footer-links">
-    <span>الخصوصية</span>
-    <span className="divider">|</span>
-    <span>الشروط والأحكام</span>
-    <span className="divider">|</span>
-    <span>التعليمات</span>
-  </div>
+        <footer className="emp-footer mt-5">
+          <div className="footer-links">
+            <span>الخصوصية</span>
+            <span className="divider">|</span>
+            <span>الشروط والأحكام</span>
+            <span className="divider">|</span>
+            <span>التعليمات</span>
+          </div>
 
-  <div className="footer-copy">
-    وزارة الاقتصاد الوطني الفلسطيني
-  </div>
-</footer>
+          <div className="footer-copy">
+            وزارة الاقتصاد الوطني الفلسطيني
+          </div>
+        </footer>
 
-        
+
       </div>
     </div>
   );
