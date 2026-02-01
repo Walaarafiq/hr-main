@@ -1,0 +1,5586 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "نظام إدارة الموارد البشرية",
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://palegoldenrod-hamster-512838.hostingersite.com/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Employee"
+    }
+  ],
+  "paths": {
+    "/v1/employee/dashboard": {
+      "get": {
+        "operationId": "employee.dashboard",
+        "summary": "Display the employee dashboard",
+        "tags": [
+          "Employee"
+        ],
+        "responses": {
+          "200": {
+            "description": "`EmployeeDashboardResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/EmployeeDashboardResource"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "Employee not found"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/contracts/{contractType}": {
+      "get": {
+        "operationId": "contractEmployee.index",
+        "tags": [
+          "ContractEmployee"
+        ],
+        "parameters": [
+          {
+            "name": "contractType",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "`ContractEmployeesResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/ContractEmployeesResource"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          }
+        }
+      }
+    },
+    "/v1/dashboard": {
+      "get": {
+        "operationId": "dashboard",
+        "summary": "Display the dashboard",
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "`DashboardResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/DashboardResource"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          }
+        }
+      }
+    },
+    "/v1/employees/find_governorate": {
+      "post": {
+        "operationId": "employee.findGovernorate",
+        "tags": [
+          "Employee"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          }
+        }
+      }
+    },
+    "/v1/employees": {
+      "get": {
+        "operationId": "employees.index",
+        "summary": "Display a listing of the resource",
+        "tags": [
+          "Employee"
+        ],
+        "responses": {
+          "200": {
+            "description": "`EmployeesResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/EmployeesResource"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          }
+        }
+      },
+      "post": {
+        "operationId": "employees.store",
+        "summary": "Store a newly created resource in storage",
+        "tags": [
+          "Employee"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StoreEmployeeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "`EmployeesResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/EmployeesResource"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      }
+    },
+    "/v1/employees/{employee}": {
+      "get": {
+        "operationId": "employees.show",
+        "summary": "Display the specified resource",
+        "tags": [
+          "Employee"
+        ],
+        "parameters": [
+          {
+            "name": "employee",
+            "in": "path",
+            "required": true,
+            "description": "The employee ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "`EmployeesResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/EmployeesResource"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      },
+      "put": {
+        "operationId": "employees.update",
+        "summary": "Update the specified resource in storage",
+        "tags": [
+          "Employee"
+        ],
+        "parameters": [
+          {
+            "name": "employee",
+            "in": "path",
+            "required": true,
+            "description": "The employee ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEmployeeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "`EmployeesResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/EmployeesResource"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "employees.destroy",
+        "summary": "Remove the specified resource from storage",
+        "tags": [
+          "Employee"
+        ],
+        "parameters": [
+          {
+            "name": "employee",
+            "in": "path",
+            "required": true,
+            "description": "The employee ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      }
+    },
+    "/v1/employees/{employee}/children": {
+      "get": {
+        "operationId": "employeeChild.indexForEmployee",
+        "tags": [
+          "EmployeeChild"
+        ],
+        "parameters": [
+          {
+            "name": "employee",
+            "in": "path",
+            "required": true,
+            "description": "The employee ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم جلب أطفال الموظف بنجاح."
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/LengthAwarePaginator"
+                    },
+                    "employee": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "full_name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "full_name"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data",
+                    "employee"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      }
+    },
+    "/v1/children/deleted": {
+      "get": {
+        "operationId": "employeeChild.showDeletedChildren",
+        "tags": [
+          "EmployeeChild"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم جلب بيانات الأطفال المحذوفين بنجاح."
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/LengthAwarePaginator"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          }
+        }
+      }
+    },
+    "/v1/children/with-deleted": {
+      "get": {
+        "operationId": "employeeChild.showAllWithDeleted",
+        "tags": [
+          "EmployeeChild"
+        ],
+        "parameters": [
+          {
+            "name": "per_page",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": 15
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم جلب جميع الأطفال مع المحذوفين بنجاح."
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/LengthAwarePaginator"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          }
+        }
+      }
+    },
+    "/v1/children/{id}/restore": {
+      "post": {
+        "operationId": "employeeChild.restore",
+        "tags": [
+          "EmployeeChild"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم استرجاع بيانات الابن/الابنة بنجاح."
+                      ]
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "لم يتم العثور على بيانات الطفل المحذوف للاسترجاع."
+                      ]
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/children": {
+      "get": {
+        "operationId": "children.index",
+        "tags": [
+          "EmployeeChild"
+        ],
+        "parameters": [
+          {
+            "name": "per_page",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": 15
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم جلب جميع الأطفال بنجاح."
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/LengthAwarePaginator"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          }
+        }
+      },
+      "post": {
+        "operationId": "children.store",
+        "tags": [
+          "EmployeeChild"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/StoreEmployeeChildRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم إضافة بيانات الابن/الابنة بنجاح."
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/EmployeeChild"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      }
+    },
+    "/v1/children/{child}": {
+      "get": {
+        "operationId": "children.show",
+        "tags": [
+          "EmployeeChild"
+        ],
+        "parameters": [
+          {
+            "name": "child",
+            "in": "path",
+            "required": true,
+            "description": "The child ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم جلب بيانات الطفل بنجاح."
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/EmployeeChild"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      },
+      "put": {
+        "operationId": "children.update",
+        "tags": [
+          "EmployeeChild"
+        ],
+        "parameters": [
+          {
+            "name": "child",
+            "in": "path",
+            "required": true,
+            "description": "The child ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEmployeeChildRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم تحديث بيانات الابن/الابنة بنجاح."
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/EmployeeChild"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "children.destroy",
+        "tags": [
+          "EmployeeChild"
+        ],
+        "parameters": [
+          {
+            "name": "child",
+            "in": "path",
+            "required": true,
+            "description": "The child ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "حذف مؤقت (soft delete)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم حذف بيانات الابن/الابنة مؤقتًا بنجاح."
+                      ]
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      }
+    },
+    "/v1/employees/children/data": {
+      "get": {
+        "operationId": "employees.children.data",
+        "summary": "DataTables JSON source",
+        "tags": [
+          "EmployeeChild"
+        ],
+        "parameters": [
+          {
+            "name": "search[value]",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "order[0][dir]",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "desc"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "draw": {
+                      "type": "integer"
+                    },
+                    "recordsTotal": {
+                      "type": "string"
+                    },
+                    "recordsFiltered": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "row_number": {
+                            "type": "string"
+                          },
+                          "employee_name": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "-"
+                                ]
+                              }
+                            ]
+                          },
+                          "employee_id": {
+                            "type": "string"
+                          },
+                          "full_name": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "-"
+                                ]
+                              }
+                            ]
+                          },
+                          "gender": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "-"
+                                ]
+                              }
+                            ]
+                          },
+                          "id_number": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "-"
+                                ]
+                              }
+                            ]
+                          },
+                          "birth_date": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "-"
+                                ]
+                              }
+                            ]
+                          },
+                          "mother_full_name": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "-"
+                                ]
+                              }
+                            ]
+                          },
+                          "mother_id_number": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "-"
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "row_number",
+                          "employee_name",
+                          "employee_id",
+                          "full_name",
+                          "gender",
+                          "id_number",
+                          "birth_date",
+                          "mother_full_name",
+                          "mother_id_number"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "draw",
+                    "recordsTotal",
+                    "recordsFiltered",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          }
+        }
+      }
+    },
+    "/v1/employees/children": {
+      "get": {
+        "operationId": "employees.children.index",
+        "summary": "Admin list endpoint",
+        "tags": [
+          "EmployeeChild"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "Use /api/v1/children/data for listing (DataTables)."
+                      ]
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          }
+        }
+      }
+    },
+    "/v1/employee-degrees/deleted": {
+      "get": {
+        "operationId": "employeeDegree.showAllDeleted",
+        "tags": [
+          "EmployeeDegree"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم جلب الشهادات المحذوفة بنجاح."
+                      ]
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          }
+        }
+      }
+    },
+    "/v1/employee-degrees/all": {
+      "get": {
+        "operationId": "employeeDegree.showAllWithDeleted",
+        "tags": [
+          "EmployeeDegree"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم جلب جميع الشهادات مع المحذوفين بنجاح."
+                      ]
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          }
+        }
+      }
+    },
+    "/v1/employee-degrees/employee/{employeeId}": {
+      "get": {
+        "operationId": "employeeDegree.employeeIdDegree",
+        "tags": [
+          "EmployeeDegree"
+        ],
+        "parameters": [
+          {
+            "name": "employeeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم جلب شهادات الموظف بنجاح."
+                      ]
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/EmployeeDegree"
+                      }
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          }
+        }
+      }
+    },
+    "/v1/employee-degrees/{id}": {
+      "get": {
+        "operationId": "employeeDegree.show",
+        "tags": [
+          "EmployeeDegree"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم جلب الشهادة بنجاح."
+                      ]
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "لم يتم العثور على الشهادة."
+                      ]
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/employee-degrees": {
+      "post": {
+        "operationId": "employeeDegree.store",
+        "tags": [
+          "EmployeeDegree"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StoreEmployeeDegreeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم إضافة الشهادة بنجاح."
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/EmployeeDegree"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      }
+    },
+    "/v1/employee-degrees/{employeeDegree}": {
+      "put": {
+        "operationId": "employeeDegree.update",
+        "tags": [
+          "EmployeeDegree"
+        ],
+        "parameters": [
+          {
+            "name": "employeeDegree",
+            "in": "path",
+            "required": true,
+            "description": "The employee degree ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEmployeeDegreeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم تحديث بيانات الشهادة بنجاح."
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/EmployeeDegree"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "employeeDegree.delete",
+        "tags": [
+          "EmployeeDegree"
+        ],
+        "parameters": [
+          {
+            "name": "employeeDegree",
+            "in": "path",
+            "required": true,
+            "description": "The employee degree ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم حذف الشهادة بنجاح."
+                      ]
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      }
+    },
+    "/v1/employee-degrees/restore/{id}": {
+      "post": {
+        "operationId": "employeeDegree.restore",
+        "tags": [
+          "EmployeeDegree"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم استرجاع الشهادة بنجاح."
+                      ]
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          }
+        }
+      }
+    },
+    "/v1/employees/{employee}/dependents": {
+      "get": {
+        "operationId": "employeeDependent.indexForEmployee",
+        "tags": [
+          "EmployeeDependent"
+        ],
+        "parameters": [
+          {
+            "name": "employee",
+            "in": "path",
+            "required": true,
+            "description": "The employee ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم جلب معالي الموظف بنجاح."
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/LengthAwarePaginator"
+                    },
+                    "employee": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "full_name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "full_name"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data",
+                    "employee"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      }
+    },
+    "/v1/dependents/deleted": {
+      "get": {
+        "operationId": "employeeDependent.showDeleted",
+        "tags": [
+          "EmployeeDependent"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم جلب المعالين المحذوفين بنجاح."
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/LengthAwarePaginator"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          }
+        }
+      }
+    },
+    "/v1/dependents/with-deleted": {
+      "get": {
+        "operationId": "employeeDependent.showWithDeleted",
+        "tags": [
+          "EmployeeDependent"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم جلب جميع المعالين بما فيهم المحذوفين مؤقتاً."
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/LengthAwarePaginator"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          }
+        }
+      }
+    },
+    "/v1/dependents/{id}/restore": {
+      "post": {
+        "operationId": "employeeDependent.restore",
+        "tags": [
+          "EmployeeDependent"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم استرجاع بيانات المعال بنجاح."
+                      ]
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "المعال غير موجود أو لم يتم حذفه."
+                      ]
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dependents": {
+      "get": {
+        "operationId": "dependents.index",
+        "tags": [
+          "EmployeeDependent"
+        ],
+        "parameters": [
+          {
+            "name": "per_page",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": 15
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم جلب جميع بيانات المعالين بنجاح."
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/LengthAwarePaginator"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          }
+        }
+      },
+      "post": {
+        "operationId": "dependents.store",
+        "tags": [
+          "EmployeeDependent"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/StoreDependentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم إضافة بيانات المعال بنجاح."
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/EmployeeDependent"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      }
+    },
+    "/v1/dependents/{dependent}": {
+      "get": {
+        "operationId": "dependents.show",
+        "tags": [
+          "EmployeeDependent"
+        ],
+        "parameters": [
+          {
+            "name": "dependent",
+            "in": "path",
+            "required": true,
+            "description": "The dependent ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم جلب بيانات المعال بنجاح."
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/EmployeeDependent"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      },
+      "put": {
+        "operationId": "dependents.update",
+        "tags": [
+          "EmployeeDependent"
+        ],
+        "parameters": [
+          {
+            "name": "dependent",
+            "in": "path",
+            "required": true,
+            "description": "The dependent ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDependentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم تحديث بيانات المعال بنجاح."
+                      ]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/EmployeeDependent"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "dependents.destroy",
+        "tags": [
+          "EmployeeDependent"
+        ],
+        "parameters": [
+          {
+            "name": "dependent",
+            "in": "path",
+            "required": true,
+            "description": "The dependent ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "تم حذف بيانات المعال بنجاح."
+                      ]
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      }
+    },
+    "/v1/employees/dependents/data": {
+      "get": {
+        "operationId": "employees.dependents.data",
+        "tags": [
+          "EmployeeDependent"
+        ],
+        "responses": {
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "501": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "draw": {
+                      "type": "integer"
+                    },
+                    "recordsTotal": {
+                      "type": "integer",
+                      "enum": [
+                        0
+                      ]
+                    },
+                    "recordsFiltered": {
+                      "type": "integer",
+                      "enum": [
+                        0
+                      ]
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "minItems": 0,
+                      "maxItems": 0,
+                      "additionalItems": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "Dependents endpoint is not implemented yet."
+                      ]
+                    }
+                  },
+                  "required": [
+                    "draw",
+                    "recordsTotal",
+                    "recordsFiltered",
+                    "data",
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/employees/dependents": {
+      "get": {
+        "operationId": "employees.dependents.index",
+        "tags": [
+          "EmployeeDependent"
+        ],
+        "responses": {
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "501": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "Dependents endpoint is not implemented yet (no employee_dependents table/migrations found)."
+                      ]
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/employees/spouses/data": {
+      "get": {
+        "operationId": "employees.spouses.data",
+        "summary": "DataTables JSON source",
+        "tags": [
+          "EmployeeSpouse"
+        ],
+        "parameters": [
+          {
+            "name": "search[value]",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "order[0][dir]",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "desc"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "draw": {
+                      "type": "integer"
+                    },
+                    "recordsTotal": {
+                      "type": "string"
+                    },
+                    "recordsFiltered": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "row_number": {
+                            "type": "string"
+                          },
+                          "employee_name": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "-"
+                                ]
+                              }
+                            ]
+                          },
+                          "employee_id": {
+                            "type": "string"
+                          },
+                          "full_name": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "-"
+                                ]
+                              }
+                            ]
+                          },
+                          "spouse_id_number": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "-"
+                                ]
+                              }
+                            ]
+                          },
+                          "marriage_date": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "-"
+                                ]
+                              }
+                            ]
+                          },
+                          "mobile": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "-"
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "row_number",
+                          "employee_name",
+                          "employee_id",
+                          "full_name",
+                          "spouse_id_number",
+                          "marriage_date",
+                          "mobile"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "draw",
+                    "recordsTotal",
+                    "recordsFiltered",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          }
+        }
+      }
+    },
+    "/v1/employees/spouses": {
+      "get": {
+        "operationId": "employees.spouses.index",
+        "summary": "Admin list endpoint",
+        "tags": [
+          "EmployeeSpouse"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "Use /api/v1/spouses/data for listing (DataTables)."
+                      ]
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          }
+        }
+      }
+    },
+    "/v1/login": {
+      "get": {
+        "operationId": "login",
+        "summary": "Display the login form",
+        "tags": [
+          "Login"
+        ],
+        "responses": {
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "login.login",
+        "summary": "Handle an incoming authentication request",
+        "tags": [
+          "Login"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "`UserResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/UserResource"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      }
+    },
+    "/v1/logout": {
+      "post": {
+        "operationId": "logout",
+        "summary": "Destroy an authenticated session",
+        "tags": [
+          "Login"
+        ],
+        "responses": {
+          "202": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          }
+        }
+      }
+    },
+    "/v1/payslips/{payslip}/download": {
+      "get": {
+        "operationId": "payslips.download",
+        "tags": [
+          "Payslip"
+        ],
+        "parameters": [
+          {
+            "name": "payslip",
+            "in": "path",
+            "required": true,
+            "description": "The payslip ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      }
+    },
+    "/v1/reference-data": {
+      "get": {
+        "operationId": "reference-data.index",
+        "summary": "Display a listing of the resource",
+        "tags": [
+          "ReferenceData"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "`ReferenceDataResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/ReferenceDataResource"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          }
+        }
+      },
+      "post": {
+        "operationId": "reference-data.store",
+        "summary": "Store a newly created resource in storage",
+        "tags": [
+          "ReferenceData"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StoreReferenceDataRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      }
+    },
+    "/v1/reference-data/{referenceData}": {
+      "put": {
+        "operationId": "reference-data.update",
+        "summary": "Update the specified resource in storage",
+        "tags": [
+          "ReferenceData"
+        ],
+        "parameters": [
+          {
+            "name": "referenceData",
+            "in": "path",
+            "required": true,
+            "description": "The reference data ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateReferenceDataRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "reference-data.destroy",
+        "summary": "Remove the specified resource from storage",
+        "tags": [
+          "ReferenceData"
+        ],
+        "parameters": [
+          {
+            "name": "referenceData",
+            "in": "path",
+            "required": true,
+            "description": "The reference data ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      }
+    },
+    "/v1/retirees": {
+      "get": {
+        "operationId": "retirees.index",
+        "summary": "Display the retirees page with year filtering",
+        "tags": [
+          "Retirees"
+        ],
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "now"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "`RetireesResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/RetireesResource"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          }
+        }
+      }
+    },
+    "/v1/temp-contract-employees": {
+      "get": {
+        "operationId": "temp-contract-employees.index",
+        "summary": "Display a listing of the resource",
+        "tags": [
+          "TempContractEmployee"
+        ],
+        "responses": {
+          "200": {
+            "description": "`TempContractEmployeesResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/TempContractEmployeesResource"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          }
+        }
+      },
+      "post": {
+        "operationId": "temp-contract-employees.store",
+        "summary": "Store a newly created resource in storage",
+        "tags": [
+          "TempContractEmployee"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StoreTempContractEmployeeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "`TempContractEmployeeResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/TempContractEmployeeResource"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      }
+    },
+    "/v1/temp-contract-employees/{tempContractEmployee}": {
+      "get": {
+        "operationId": "temp-contract-employees.show",
+        "summary": "Display the specified resource",
+        "tags": [
+          "TempContractEmployee"
+        ],
+        "parameters": [
+          {
+            "name": "tempContractEmployee",
+            "in": "path",
+            "required": true,
+            "description": "The temp contract employee ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "`TempContractEmployeeResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/TempContractEmployeeResource"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      },
+      "put": {
+        "operationId": "temp-contract-employees.update",
+        "summary": "Update the specified resource in storage",
+        "tags": [
+          "TempContractEmployee"
+        ],
+        "parameters": [
+          {
+            "name": "tempContractEmployee",
+            "in": "path",
+            "required": true,
+            "description": "The temp contract employee ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTempContractEmployeeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "`TempContractEmployeeResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/TempContractEmployeeResource"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "temp-contract-employees.destroy",
+        "summary": "Remove the specified resource from storage",
+        "tags": [
+          "TempContractEmployee"
+        ],
+        "parameters": [
+          {
+            "name": "tempContractEmployee",
+            "in": "path",
+            "required": true,
+            "description": "The temp contract employee ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      }
+    },
+    "/v1/temp-contract-projects": {
+      "get": {
+        "operationId": "temp-contract-projects.index",
+        "summary": "Display a listing of the resource",
+        "tags": [
+          "TempContractProject"
+        ],
+        "responses": {
+          "200": {
+            "description": "`TempContractProjectsResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/TempContractProjectsResource"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          }
+        }
+      },
+      "post": {
+        "operationId": "temp-contract-projects.store",
+        "summary": "Store a newly created resource in storage",
+        "tags": [
+          "TempContractProject"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TempContractProjectRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "`TempContractProjectResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/TempContractProjectResource"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      }
+    },
+    "/v1/temp-contract-projects/{tempContractProject}": {
+      "get": {
+        "operationId": "temp-contract-projects.show",
+        "summary": "Display the specified resource",
+        "tags": [
+          "TempContractProject"
+        ],
+        "parameters": [
+          {
+            "name": "tempContractProject",
+            "in": "path",
+            "required": true,
+            "description": "The temp contract project ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "`TempContractProjectResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/TempContractProjectResource"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      },
+      "put": {
+        "operationId": "temp-contract-projects.update",
+        "summary": "Update the specified resource in storage",
+        "tags": [
+          "TempContractProject"
+        ],
+        "parameters": [
+          {
+            "name": "tempContractProject",
+            "in": "path",
+            "required": true,
+            "description": "The temp contract project ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TempContractProjectRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "$message = ['success'=> 'تم تحديث بيانات المشروع بنجاح.'];\n\n\n\n`TempContractProjectResource`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/TempContractProjectResource"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          },
+          "422": {
+            "$ref": "#/components/responses/ValidationException"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "temp-contract-projects.destroy",
+        "summary": "Remove the specified resource from storage",
+        "tags": [
+          "TempContractProject"
+        ],
+        "parameters": [
+          {
+            "name": "tempContractProject",
+            "in": "path",
+            "required": true,
+            "description": "The temp contract project ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AuthenticationException"
+          },
+          "404": {
+            "$ref": "#/components/responses/ModelNotFoundException"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ContractEmployeesResource": {
+        "type": "object",
+        "additionalProperties": {},
+        "title": "ContractEmployeesResource"
+      },
+      "DashboardResource": {
+        "type": "object",
+        "additionalProperties": {},
+        "title": "DashboardResource"
+      },
+      "EmployeeChild": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "employee_id": {
+            "type": "integer"
+          },
+          "full_name": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "id_number": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "birth_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "marital_status": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "is_working": {
+            "type": "boolean"
+          },
+          "is_university_student": {
+            "type": "boolean"
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "id_card_image": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "birth_certificate_image": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "mother_full_name": {
+            "type": "string"
+          },
+          "mother_id_number": {
+            "type": "string"
+          },
+          "approval_status": {
+            "type": "string"
+          },
+          "submitted_by": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "approved_by": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "approved_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "rejection_reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "deleted_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "created_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "employee_id",
+          "full_name",
+          "gender",
+          "id_number",
+          "birth_date",
+          "marital_status",
+          "is_working",
+          "is_university_student",
+          "notes",
+          "id_card_image",
+          "birth_certificate_image",
+          "mother_full_name",
+          "mother_id_number",
+          "approval_status",
+          "submitted_by",
+          "approved_by",
+          "approved_at",
+          "rejection_reason",
+          "deleted_at",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "EmployeeChild"
+      },
+      "EmployeeDashboardResource": {
+        "type": "object",
+        "properties": {
+          "employment_status": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "net_last_salary": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "last_payslip_link": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "personal_info": {
+            "type": "object",
+            "properties": {
+              "full_name": {
+                "type": "string"
+              },
+              "employee_number": {
+                "type": "string"
+              },
+              "national_id": {
+                "type": "string"
+              },
+              "department": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "job_title": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "full_name",
+              "employee_number",
+              "national_id",
+              "department",
+              "job_title"
+            ]
+          },
+          "spouses": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "full_name": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "national_id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "full_name",
+                "status",
+                "national_id"
+              ]
+            }
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "full_name": {
+                  "type": "string"
+                },
+                "age": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "study_status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "full_name",
+                "age",
+                "study_status"
+              ]
+            }
+          },
+          "dependents": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "full_name": {
+                  "type": "string"
+                },
+                "relationship": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "dependency_reason": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "full_name",
+                "relationship",
+                "dependency_reason"
+              ]
+            }
+          },
+          "qualifications": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "degree": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "institution": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "graduation_year": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "degree",
+                "institution",
+                "graduation_year"
+              ]
+            }
+          }
+        },
+        "required": [
+          "employment_status",
+          "net_last_salary",
+          "last_payslip_link",
+          "personal_info",
+          "spouses",
+          "children",
+          "dependents",
+          "qualifications"
+        ],
+        "title": "EmployeeDashboardResource"
+      },
+      "EmployeeDegree": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "employee_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "qualification_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "major_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "university_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "graduation_year": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "document_path": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "grade": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "certificate_attachment": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "created_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "deleted_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "employee_id",
+          "qualification_id",
+          "major_name",
+          "university_name",
+          "graduation_year",
+          "document_path",
+          "grade",
+          "certificate_attachment",
+          "notes",
+          "created_at",
+          "updated_at",
+          "deleted_at"
+        ],
+        "title": "EmployeeDegree"
+      },
+      "EmployeeDependent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "employee_id": {
+            "type": "integer"
+          },
+          "full_name": {
+            "type": "string"
+          },
+          "dependent_id_number": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "birth_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "mobile": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "relationship": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "address": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "gender": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "dependency_proof_path": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "approval_status": {
+            "type": "string"
+          },
+          "submitted_by": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "approved_by": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "approved_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "rejection_reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "created_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "deleted_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "employee_id",
+          "full_name",
+          "dependent_id_number",
+          "birth_date",
+          "mobile",
+          "relationship",
+          "address",
+          "gender",
+          "notes",
+          "dependency_proof_path",
+          "approval_status",
+          "submitted_by",
+          "approved_by",
+          "approved_at",
+          "rejection_reason",
+          "created_at",
+          "updated_at",
+          "deleted_at"
+        ],
+        "title": "EmployeeDependent"
+      },
+      "EmployeesResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "second_name": {
+            "type": "string"
+          },
+          "third_name": {
+            "type": "string"
+          },
+          "family_name": {
+            "type": "string"
+          },
+          "full_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "employee_number": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "contract_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "birth_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "is_alive": {
+            "type": "boolean"
+          },
+          "gender": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "marital_status": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "primary_phone": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "secondary_phone": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "governorate_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "city_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "address": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "date_of_appointment": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "bank_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "bank_account_number": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "bank_iban": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "user_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "national_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "data_entry_status": {
+            "type": "string"
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "created_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "deleted_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "first_name",
+          "second_name",
+          "third_name",
+          "family_name",
+          "full_name",
+          "employee_number",
+          "contract_id",
+          "birth_date",
+          "is_alive",
+          "gender",
+          "marital_status",
+          "primary_phone",
+          "secondary_phone",
+          "governorate_id",
+          "city_id",
+          "address",
+          "date_of_appointment",
+          "bank_id",
+          "bank_account_number",
+          "bank_iban",
+          "user_id",
+          "national_id",
+          "is_active",
+          "data_entry_status",
+          "notes",
+          "created_at",
+          "updated_at",
+          "deleted_at"
+        ],
+        "title": "EmployeesResource"
+      },
+      "LengthAwarePaginator": {
+        "type": "object",
+        "properties": {
+          "current_page": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "string"
+          },
+          "first_page_url": {
+            "type": "string"
+          },
+          "from": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "last_page": {
+            "type": "integer"
+          },
+          "last_page_url": {
+            "type": "string"
+          },
+          "links": {
+            "type": "object",
+            "additionalProperties": {}
+          },
+          "next_page_url": {
+            "type": "string"
+          },
+          "path": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "per_page": {
+            "type": "integer"
+          },
+          "prev_page_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "to": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "total": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "current_page",
+          "data",
+          "first_page_url",
+          "from",
+          "last_page",
+          "last_page_url",
+          "links",
+          "next_page_url",
+          "path",
+          "per_page",
+          "prev_page_url",
+          "to",
+          "total"
+        ],
+        "title": "LengthAwarePaginator"
+      },
+      "LoginRequest": {
+        "type": "object",
+        "properties": {
+          "national_id": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "remember": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "national_id",
+          "password"
+        ],
+        "title": "LoginRequest"
+      },
+      "ReferenceDataResource": {
+        "type": "object",
+        "additionalProperties": {},
+        "title": "ReferenceDataResource"
+      },
+      "RetireesResource": {
+        "type": "object",
+        "additionalProperties": {},
+        "title": "RetireesResource"
+      },
+      "StoreDependentRequest": {
+        "type": "object",
+        "properties": {
+          "employee_id": {
+            "type": "integer"
+          },
+          "full_name": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "birth_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "ذكر",
+              "أنثى"
+            ]
+          },
+          "dependency_proof": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "binary",
+            "contentMediaType": "application/octet-stream",
+            "maxLength": 2048
+          }
+        },
+        "required": [
+          "employee_id",
+          "full_name",
+          "birth_date",
+          "gender"
+        ],
+        "title": "StoreDependentRequest"
+      },
+      "StoreEmployeeChildRequest": {
+        "type": "object",
+        "properties": {
+          "full_name": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "national_id": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "birth_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "ذكر",
+              "أنثى"
+            ]
+          },
+          "marital_status": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "أعزب",
+              "متزوج",
+              "مطلق",
+              "أرمل"
+            ]
+          },
+          "employee_id": {
+            "type": "integer"
+          },
+          "is_working": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "is_university_student": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "mother_full_name": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "mother_id_number": {
+            "type": "string",
+            "maxLength": 9
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "id_card_image": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "binary",
+            "contentMediaType": "application/octet-stream",
+            "maxLength": 5120
+          },
+          "birth_certificate_image": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "binary",
+            "contentMediaType": "application/octet-stream",
+            "maxLength": 5120
+          }
+        },
+        "required": [
+          "full_name",
+          "national_id",
+          "birth_date",
+          "gender",
+          "employee_id",
+          "mother_full_name",
+          "mother_id_number"
+        ],
+        "title": "StoreEmployeeChildRequest"
+      },
+      "StoreEmployeeDegreeRequest": {
+        "type": "object",
+        "properties": {
+          "employee_id": {
+            "type": "integer"
+          },
+          "qualification_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "major_name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255
+          },
+          "university_name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255
+          },
+          "country_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "graduation_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "graduation_year": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "grade": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 50
+          },
+          "document_path": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "certificate_attachment": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "employee_id"
+        ],
+        "title": "StoreEmployeeDegreeRequest"
+      },
+      "StoreEmployeeRequest": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string"
+          },
+          "second_name": {
+            "type": "string"
+          },
+          "third_name": {
+            "type": "string"
+          },
+          "family_name": {
+            "type": "string"
+          },
+          "birth_date": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "marital_status": {
+            "type": "string"
+          },
+          "primary_phone": {
+            "type": "string"
+          },
+          "secondary_phone": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "national_id": {
+            "type": "string"
+          },
+          "employee_number": {
+            "type": "string"
+          },
+          "date_of_appointment": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "governorate_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "city_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "address": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "bank_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "bank_account_number": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "bank_iban": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "is_alive": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "is_active": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "data_entry_status": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "first_name",
+          "second_name",
+          "third_name",
+          "family_name",
+          "birth_date",
+          "gender",
+          "marital_status",
+          "primary_phone",
+          "national_id",
+          "employee_number"
+        ],
+        "title": "StoreEmployeeRequest"
+      },
+      "StoreReferenceDataRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "value": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "slug": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255
+          }
+        },
+        "required": [
+          "name",
+          "value"
+        ],
+        "title": "StoreReferenceDataRequest"
+      },
+      "StoreTempContractEmployeeRequest": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string"
+          },
+          "second_name": {
+            "type": "string"
+          },
+          "third_name": {
+            "type": "string"
+          },
+          "family_name": {
+            "type": "string"
+          },
+          "birth_date": {
+            "type": "string"
+          },
+          "national_id": {
+            "type": "string"
+          },
+          "start_contract_date": {
+            "type": "string"
+          },
+          "end_contract_date": {
+            "type": "string"
+          },
+          "gender": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "marital_status": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "primary_phone": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "secondary_phone": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "governorate_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "city_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "certificate_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "address": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "position_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "university_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "major_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "graduation_date": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "temp_contract_project_id": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "first_name",
+          "second_name",
+          "third_name",
+          "family_name",
+          "birth_date",
+          "national_id",
+          "start_contract_date",
+          "end_contract_date",
+          "temp_contract_project_id"
+        ],
+        "title": "StoreTempContractEmployeeRequest"
+      },
+      "TempContractEmployeeResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "temp_contract_project_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "first_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "second_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "third_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "family_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "full_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "national_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "primary_phone": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "secondary_phone": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "gender": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "marital_status": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "birth_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "position_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "start_contract_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "end_contract_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "governorate_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "city_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "address": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "certificate_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "university_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "major_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "graduation_date": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "data_entry_status": {
+            "type": "string"
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "created_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "deleted_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "temp_contract_project_id",
+          "first_name",
+          "second_name",
+          "third_name",
+          "family_name",
+          "full_name",
+          "national_id",
+          "primary_phone",
+          "secondary_phone",
+          "gender",
+          "marital_status",
+          "birth_date",
+          "position_type",
+          "start_contract_date",
+          "end_contract_date",
+          "governorate_id",
+          "city_id",
+          "address",
+          "certificate_id",
+          "university_name",
+          "major_name",
+          "graduation_date",
+          "is_active",
+          "data_entry_status",
+          "notes",
+          "created_at",
+          "updated_at",
+          "deleted_at"
+        ],
+        "title": "TempContractEmployeeResource"
+      },
+      "TempContractEmployeesResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "temp_contract_project_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "first_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "second_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "third_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "family_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "full_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "national_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "primary_phone": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "secondary_phone": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "gender": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "marital_status": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "birth_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "position_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "start_contract_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "end_contract_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "governorate_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "city_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "address": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "certificate_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "university_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "major_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "graduation_date": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "data_entry_status": {
+            "type": "string"
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "created_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "deleted_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "temp_contract_project_id",
+          "first_name",
+          "second_name",
+          "third_name",
+          "family_name",
+          "full_name",
+          "national_id",
+          "primary_phone",
+          "secondary_phone",
+          "gender",
+          "marital_status",
+          "birth_date",
+          "position_type",
+          "start_contract_date",
+          "end_contract_date",
+          "governorate_id",
+          "city_id",
+          "address",
+          "certificate_id",
+          "university_name",
+          "major_name",
+          "graduation_date",
+          "is_active",
+          "data_entry_status",
+          "notes",
+          "created_at",
+          "updated_at",
+          "deleted_at"
+        ],
+        "title": "TempContractEmployeesResource"
+      },
+      "TempContractProjectRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "duration": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255
+          },
+          "start_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "end_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "funding_source": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "TempContractProjectRequest"
+      },
+      "TempContractProjectResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "duration": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "start_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "end_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "funding_source": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "created_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "duration",
+          "start_date",
+          "end_date",
+          "funding_source",
+          "description",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "TempContractProjectResource"
+      },
+      "TempContractProjectsResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "duration": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "start_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "end_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "funding_source": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "created_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "duration",
+          "start_date",
+          "end_date",
+          "funding_source",
+          "description",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "TempContractProjectsResource"
+      },
+      "UpdateDependentRequest": {
+        "type": "object",
+        "properties": {
+          "full_name": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "birth_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "male",
+              "female"
+            ]
+          },
+          "dependency_proof": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "binary",
+            "contentMediaType": "application/octet-stream",
+            "maxLength": 2048
+          }
+        },
+        "title": "UpdateDependentRequest"
+      },
+      "UpdateEmployeeChildRequest": {
+        "type": "object",
+        "properties": {
+          "full_name": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "national_id": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "birth_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "ذكر",
+              "أنثى"
+            ]
+          },
+          "marital_status": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "أعزب",
+              "متزوج",
+              "مطلق",
+              "أرمل"
+            ]
+          },
+          "employee_id": {
+            "type": "integer"
+          },
+          "is_working": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "is_university_student": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "mother_full_name": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "mother_id_number": {
+            "type": "string",
+            "maxLength": 9
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "id_card_image": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "binary",
+            "contentMediaType": "application/octet-stream",
+            "maxLength": 5120
+          },
+          "birth_certificate_image": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "binary",
+            "contentMediaType": "application/octet-stream",
+            "maxLength": 5120
+          }
+        },
+        "required": [
+          "full_name",
+          "national_id",
+          "birth_date",
+          "gender",
+          "employee_id",
+          "mother_full_name",
+          "mother_id_number"
+        ],
+        "title": "UpdateEmployeeChildRequest"
+      },
+      "UpdateEmployeeDegreeRequest": {
+        "type": "object",
+        "properties": {
+          "qualification_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "major_name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255
+          },
+          "university_name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255
+          },
+          "country_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "graduation_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "graduation_year": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "grade": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 50
+          },
+          "document_path": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "certificate_attachment": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "title": "UpdateEmployeeDegreeRequest"
+      },
+      "UpdateEmployeeRequest": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string"
+          },
+          "second_name": {
+            "type": "string"
+          },
+          "third_name": {
+            "type": "string"
+          },
+          "family_name": {
+            "type": "string"
+          },
+          "birth_date": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "marital_status": {
+            "type": "string"
+          },
+          "primary_phone": {
+            "type": "string"
+          },
+          "secondary_phone": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "employee_number": {
+            "type": "string"
+          },
+          "national_id": {
+            "type": "string"
+          },
+          "date_of_appointment": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "governorate_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "city_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "address": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "bank_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "bank_account_number": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "bank_iban": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "is_alive": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "is_active": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "data_entry_status": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "first_name",
+          "second_name",
+          "third_name",
+          "family_name",
+          "birth_date",
+          "gender",
+          "marital_status",
+          "primary_phone",
+          "employee_number",
+          "national_id"
+        ],
+        "title": "UpdateEmployeeRequest"
+      },
+      "UpdateReferenceDataRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "value": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "slug": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 255
+          }
+        },
+        "required": [
+          "name",
+          "value"
+        ],
+        "title": "UpdateReferenceDataRequest"
+      },
+      "UpdateTempContractEmployeeRequest": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string"
+          },
+          "second_name": {
+            "type": "string"
+          },
+          "third_name": {
+            "type": "string"
+          },
+          "family_name": {
+            "type": "string"
+          },
+          "birth_date": {
+            "type": "string"
+          },
+          "national_id": {
+            "type": "string"
+          },
+          "start_contract_date": {
+            "type": "string"
+          },
+          "end_contract_date": {
+            "type": "string"
+          },
+          "gender": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "marital_status": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "primary_phone": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "secondary_phone": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "governorate_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "city_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "certificate_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "address": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "position_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "university_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "major_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "graduation_date": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "temp_contract_project_id": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "first_name",
+          "second_name",
+          "third_name",
+          "family_name",
+          "birth_date",
+          "national_id",
+          "start_contract_date",
+          "end_contract_date",
+          "temp_contract_project_id"
+        ],
+        "title": "UpdateTempContractEmployeeRequest"
+      },
+      "UserResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "national_id": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "email_verified_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "token": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "national_id",
+          "email",
+          "email_verified_at",
+          "token"
+        ],
+        "title": "UserResource"
+      }
+    },
+    "responses": {
+      "ValidationException": {
+        "description": "Validation error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Errors overview."
+                },
+                "errors": {
+                  "type": "object",
+                  "description": "A detailed description of each field that failed validation.",
+                  "additionalProperties": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "required": [
+                "message",
+                "errors"
+              ]
+            }
+          }
+        }
+      },
+      "AuthenticationException": {
+        "description": "Unauthenticated",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Error overview."
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        }
+      },
+      "ModelNotFoundException": {
+        "description": "Not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Error overview."
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

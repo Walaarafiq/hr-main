@@ -1,0 +1,7 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var jsx_runtime_1 = require("react/jsx-runtime");
+function EmployeesRow() {
+    return ((0, jsx_runtime_1.jsxs)("tr", { children: [(0, jsx_runtime_1.jsx)("td", { children: "1" }), (0, jsx_runtime_1.jsx)("td", { children: "\u0639\u0644\u0627\u0621 \u0639\u0628\u062F \u0627\u0644\u0644\u0647 \u0633\u0644\u064A\u0645\u0627\u0646 \u0642\u062F\u064A\u062D" }), (0, jsx_runtime_1.jsx)("td", { children: "\u0631\u0633\u0645\u064A" }), (0, jsx_runtime_1.jsx)("td", { children: "974334252" }), (0, jsx_runtime_1.jsx)("td", { children: "40758" }), (0, jsx_runtime_1.jsx)("td", { children: "8860386" }), (0, jsx_runtime_1.jsx)("td", { children: "1976-08-28" }), (0, jsx_runtime_1.jsx)("td", { children: "-" }), (0, jsx_runtime_1.jsx)("td", { children: "\u0631\u0626\u064A\u0633 \u0642\u0633\u0645 \u0627\u0644\u062A\u0631\u0627\u062E\u064A\u0635 \u0627\u0644\u0635\u0646\u0627\u0639\u064A\u0629" }), (0, jsx_runtime_1.jsxs)("td", { className: "actions", children: [(0, jsx_runtime_1.jsx)("button", { className: "btn btn-outline-danger btn-sm", children: "\uD83D\uDDD1" }), (0, jsx_runtime_1.jsx)("button", { className: "btn btn-outline-secondary btn-sm", children: "\u270F\uFE0F" }), (0, jsx_runtime_1.jsx)("button", { className: "btn btn-outline-warning btn-sm", children: "\uD83D\uDC41" })] })] }));
+}
+exports.default = EmployeesRow;
